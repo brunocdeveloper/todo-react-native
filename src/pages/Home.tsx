@@ -10,7 +10,7 @@ export function Home() {
 
   function handleAddTask(newTaskTitle: string) {
     const hasTask = tasks.find((items) => items.title === newTaskTitle);
-    console.log(!!hasTask);
+
     if (!!hasTask) {
       Alert.alert(
         "Task já cadastrada",
@@ -40,7 +40,22 @@ export function Home() {
   }
 
   function handleRemoveTask(id: number) {
-    setTasks((prevTask) => prevTask.filter((item) => item.id !== id));
+    Alert.alert(
+      "Remover item",
+      "Tem certeza que você deseja remover esse item?",
+      [
+        {
+          text: "Não",
+          onPress: () => "none",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () =>
+            setTasks((prevTask) => prevTask.filter((item) => item.id !== id)),
+        },
+      ]
+    );
   }
 
   return (
