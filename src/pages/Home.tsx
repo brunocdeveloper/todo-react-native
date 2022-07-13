@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, Alert } from "react-native";
 
 import { Header } from "../components/Header";
-import { Task, TasksList } from "../components/TasksList";
+import { Task, TaskEditing, TasksList } from "../components/TasksList";
 import { TodoInput } from "../components/TodoInput";
 
 export function Home() {
@@ -58,6 +58,17 @@ export function Home() {
     );
   }
 
+  function handleEditTask(task: TaskEditing) {
+    setTasks(
+      tasks.map((items) => ({
+        ...items,
+        ...(items.id === task.taskId && {
+          title: task.taskNewTitle,
+        }),
+      }))
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Header tasksCounter={tasks.length} />
@@ -68,6 +79,7 @@ export function Home() {
         tasks={tasks}
         toggleTaskDone={handleToggleTaskDone}
         removeTask={handleRemoveTask}
+        handleEditTask={handleEditTask}
       />
     </View>
   );
